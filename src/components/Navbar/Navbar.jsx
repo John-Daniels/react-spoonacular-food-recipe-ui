@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
 const Navbar = () => {
   const navigate = useNavigate()
 
-  const [search, setSearch] = useState("koder")
+  const [search, setSearch] = useState("")
 
   const handleChange = (e) => setSearch(e.target.value)
 
