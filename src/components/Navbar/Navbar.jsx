@@ -10,11 +10,7 @@ const Navbar = () => {
 
   const [search, setSearch] = useState("koder")
 
-  const handleChange = (e) => {
-    const val = e.target.value
-    navigateToSearchQuery(val)
-    setSearch(val)
-  }
+  const handleChange = (e) => setSearch(e.target.value)
 
   const searchQuery = (e) => {
     e.preventDefault()
@@ -28,7 +24,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className='app__navbar flex p-6 lg:pl-[5rem] justify-between items-center w-full'>
+    <div className='app__navbar flex p-6 lg:pl-[5rem] justify-between items-center w-full z-10'>
       <div className='flex items-center justify-between gap-10'>
         {/* brand name */}
         <h1 className='text-[1.4rem] font-base sm:text-[2rem]'>

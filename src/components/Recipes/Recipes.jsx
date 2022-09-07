@@ -12,13 +12,22 @@ function Recipes() {
   }, [])
 
   const fetchData = async () => {
-    const data = await fetch(
-      `https://api.spoonacular.com/recipes/random?number=20?apiKey=${SPOONACULAR_API_KEY}`
+    fetch(
+      `https://api.spoonacular.com/recipes/random?number=20&apiKey=${SPOONACULAR_API_KEY}`
     )
-    console.log(data)
+      .then((data) => {
+        data.json().then((data) => {
+          setRecipes(data.recipes.slice(0, 4))
+        })
+      })
+      .catch(() => {
+        const _recipe = recipeStore.slice(0, 4)
+        setRecipes(_recipe)
+      })
 
-    const _recipe = recipeStore.slice(0, 4)
-    setRecipes(_recipe)
+    // if (data.body) {
+    //   console.log(data.body)
+    // }
   }
 
   return (

@@ -7,26 +7,22 @@ const RecipeCard = ({ recipe }) => {
   const { title, id, readyInMinutes, image, dishTypes, summary } = recipe
 
   return (
-    <div className='max-w-[15rem] md:max-w-[19rem] rounded overflow-hidden shadow-lg'>
+    <div className='max-w-[15rem] h-[360px] md:max-w-[17rem] rounded overflow-hidden shadow-lg pb-[3px]'>
       <picture>
         <source
-          media='media screen and (min-width: 900)'
-          sizes='300x300'
-          src={image}
+          media='(min-width:650px)'
+          srcSet={image}
+          className='object-cover'
         />
         <source
-          media='media screen and (max-width: 900)'
-          sizes='400x400'
-          src={image}
+          media='(min-width:465px)'
+          srcSet={image}
+          className='object-cover'
         />
-        <img
-          className='w-full object-cover grayscale'
-          src={img}
-          alt='Sunset in the mountains'
-        />
+        <img src={img} alt='img' className='grayscale' />
       </picture>
 
-      <div className='px-6 py-4'>
+      <div className='px-6 py-2'>
         <div className='flex justify-between items-center mb-2'>
           <div className='font-bold text-xl truncate hover:text-clip'>
             {title}
@@ -42,14 +38,17 @@ const RecipeCard = ({ recipe }) => {
         </p>
       </div>
       <div className='px-6 pt-4 pb-2 flex justify-start items-center flex-wrap'>
-        {dishTypes.map((dishType, index) => (
-          <span
-            key={index}
-            className='bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
-          >
-            #{dishType}
-          </span>
-        ))}
+        {dishTypes.map(
+          (dishType, index) =>
+            index < 4 && (
+              <span
+                key={index}
+                className='bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'
+              >
+                #{dishType}
+              </span>
+            )
+        )}
       </div>
     </div>
   )
