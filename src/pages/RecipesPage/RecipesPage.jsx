@@ -43,7 +43,7 @@ const RecipesPage = () => {
     )
       .then((data) => {
         data.json().then((data) => {
-          if (data.results) {
+          if (data.recipes) {
             setRecipes(data.recipes)
             setLoading(false)
           }
