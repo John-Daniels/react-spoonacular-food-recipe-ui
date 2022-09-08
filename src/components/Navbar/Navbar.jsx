@@ -1,14 +1,39 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./Navbar.css"
 import { Link } from "react-router-dom"
 import { BiSearchAlt } from "react-icons/bi"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { useNavigate } from "react-router-dom"
+import { SPOONACULAR_API_KEY } from "../../constants"
 
 const Navbar = () => {
   const navigate = useNavigate()
-
   const [search, setSearch] = useState("")
+  const [autoComplete, setAutoComplete] = useState([])
+
+  // https://api.spoonacular.com/recipes/autocomplete?number=10&query=chick
+
+  useEffect(() => {
+    fetchAutocompleteList()
+  }, [search])
+
+  const fetchAutocompleteList = async () => {
+    // setRecipes(recipeStore)
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/autocomplete?number=10&query=${
+        search !== "" ? search : "pizza"
+      }&apiKey=${SPOONACULAR_API_KEY}`
+    )
+    data.json().then((res) => {
+      if (res?.length > 0) {
+        setAutoComplete(res)
+      }
+    })
+    // .catch(() => {
+    //   const _recipe = recipeStore.slice(0, 4)
+    //   setRecipes(_recipe)
+    // })
+  }
 
   const handleChange = (e) => setSearch(e.target.value)
 
@@ -64,7 +89,16 @@ const Navbar = () => {
           placeholder='Search'
           value={search}
           onChange={handleChange}
+          list='autocomplete'
         />
+        {autoComplete.length > 0 && (
+          <datalist id='autocomplete'>
+            {autoComplete.map((item, index) => (
+              <option value={item.title} key={index} />
+            ))}
+          </datalist>
+        )}
+
         <button type='submit' className='search-button'>
           <BiSearchAlt className='text-gray-600 h-6 w-6 fill-current' />
         </button>

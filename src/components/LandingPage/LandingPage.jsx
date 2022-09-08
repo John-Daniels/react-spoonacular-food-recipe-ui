@@ -1,9 +1,12 @@
 import React from "react"
 import "./LandingPage.css"
+import { Link, useNavigate } from "react-router-dom"
 
 import plateImg from "../../assets/images/ice-cream-plate.png"
 
 const LandingPage = () => {
+  const navigate = useNavigate()
+
   return (
     // <div className='w-[100%] flex bg-white'>
     <div className='app__landing-page flex items-center justify-center gap-[12%] '>
@@ -22,7 +25,10 @@ const LandingPage = () => {
 
         {/* button */}
 
-        <button className='transition block bg-green-600 hover:bg-green-500 text-white font-[400] py-2 px-4 rounded w-[50%] '>
+        <button
+          onClick={() => navigate("/recipes")}
+          className='transition block bg-green-600 hover:bg-green-500 text-white font-[400] py-2 px-4 rounded w-[50%] '
+        >
           Explore Recipes
         </button>
       </div>
